@@ -66,6 +66,11 @@ Vue.filter('upText', function(text){
 Vue.filter('myDate', function(created_at){
     return moment(created_at).format('MMMM Do YYYY');
 })
+
+// to create custom events
+let Fire = new Vue();
+window.Fire = Fire;
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
