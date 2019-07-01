@@ -24,7 +24,7 @@ class UserController extends Controller
 
 //        to authorize multiple user roles we use Gate::allows or Gate::denies
         if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')){
-            $users = User::latest()->paginate(15);
+            $users = User::latest()->paginate(2);
             return $users;
         }
 
