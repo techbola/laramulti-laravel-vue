@@ -20,8 +20,14 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::latest()->paginate(10);
-        return $users;
+//        $this->authorize('isAdmin');
+
+//        to authorize multiple user roles we use Gate::allows or Gate::denies
+        if (\Gate::allows('isAdmin') || \Gate::allows('isAuthor')){
+            $users = User::latest()->paginate(15);
+            return $users;
+        }
+
     }
 
     public function store(Request $request)
