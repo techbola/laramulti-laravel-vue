@@ -73,6 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+
                     <li class="nav-item">
                         <router-link to="/dashboard" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt blue"></i>
@@ -81,23 +82,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-cog green"></i>
-                            <p>
-                                Management
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <router-link to="/users" class="nav-link">
-                                    <i class="fas fa-users "></i>
-                                    <p>Users</p>
-                                </router-link>
-                            </li>
-                        </ul>
-                    </li>
+
+                    @can('isAdmin')
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-cog green"></i>
+                                <p>
+                                    Management
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <router-link to="/users" class="nav-link">
+                                        <i class="fas fa-users "></i>
+                                        <p>Users</p>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <router-link to="/developer" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    Developer
+                                </p>
+                            </router-link>
+                        </li>
+                    @endcan
+
                     <li class="nav-item">
                         <router-link to="/profile" class="nav-link">
                             <i class="nav-icon fas fa-user orange"></i>
@@ -154,7 +169,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
+{{-- Stores the authenticated user in the window --}}
+@auth
+    <script>
+        window.user = @json(auth()->user())
+    </script>
+@endauth
 
 <script src="/js/app.js"></script>
 

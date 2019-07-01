@@ -12,6 +12,10 @@ import moment from 'moment'
 import VueProgressBar from 'vue-progressbar'
 import { Form, HasError, AlertError } from 'vform'
 
+import Gate from './Gate';
+//window.user --- is accessing the current user, this will be set in the master.blade.php file
+Vue.prototype.$gate = new Gate(window.user);
+
 import swal from 'sweetalert2'
 window.swal = swal;
 
@@ -49,6 +53,7 @@ Vue.use(VueProgressBar, options)
 
 let routes = [
 
+    { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default }
@@ -81,6 +86,21 @@ window.Fire = Fire;
 
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
