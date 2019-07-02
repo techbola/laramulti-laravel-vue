@@ -31,16 +31,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        {{--<div class="form-inline ml-3">--}}
+            {{--<div class="input-group input-group-sm">--}}
+                {{--<input class="form-control form-control-navbar" @keyup.enter="searchUser" v-model="search" type="search" placeholder="Search" aria-label="Search">--}}
+                {{--<div class="input-group-append">--}}
+                    {{--<button class="btn btn-navbar" @click="searchUser">--}}
+                        {{--<i class="fas fa-search"></i>--}}
+                    {{--</button>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
+        {{-- Search form for insant searching using the @keyup--}}
+        <div class="form-inline ml-3">
             <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form-control-navbar" @keyup="searchUser" v-model="search" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
+                    <button class="btn btn-navbar" @click="searchUser">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
             </div>
-        </form>
+        </div>
 
     </nav>
     <!-- /.navbar -->
@@ -59,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="./img/profile.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('img/profile/'.Auth::user()->photo) }}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">

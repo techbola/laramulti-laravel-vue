@@ -264,6 +264,22 @@
                 this.loadUsers()
             })
 
+        //    we listen to the searching custom event
+            Fire.$on('searching', () => {
+
+                //to access data from the parent file (app.js) you use
+                //this.$parent.(data)
+                let query = this.$parent.search;
+                axios.get('api/findUser?q=' + query)
+                    .then(( data ) => {
+                        this.users = data.data;
+                    })
+                    .catch(() => {
+
+                    })
+
+            })
+
         }
     }
 </script>

@@ -2458,6 +2458,15 @@ __webpack_require__.r(__webpack_exports__);
     });
     Fire.$on('afterUpdateUser', function () {
       _this6.loadUsers();
+    }); //    we listen to the searching custom event
+
+    Fire.$on('searching', function () {
+      //to access data from the parent file (app.js) you use
+      //this.$parent.(data)
+      var query = _this6.$parent.search;
+      axios.get('api/findUser?q=' + query).then(function (data) {
+        _this6.users = data.data;
+      })["catch"](function () {});
     });
   }
 });
@@ -62480,7 +62489,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("h5", { staticClass: "widget-user-desc" }, [
-                _vm._v("Web Designer")
+                _vm._v(_vm._s(_vm.form.type))
               ])
             ]
           ),
@@ -79447,6 +79456,9 @@ var routes = [{
 }, {
   path: '/profile',
   component: __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue")["default"]
+}, {
+  path: '*',
+  component: __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   mode: 'history',
@@ -79485,7 +79497,19 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var app = new Vue({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    search: ""
+  },
+  methods: {
+    // searchUser(){
+    //     Fire.$emit('searching');
+    // }
+    //    Search form for insant searching using lodash _.debounce
+    searchUser: _.debounce(function () {
+      Fire.$emit('searching');
+    }, 1000)
+  }
 });
 
 /***/ }),

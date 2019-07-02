@@ -123,6 +123,23 @@ class UserController extends Controller
 
     }
 
+    public function searchUser(Request $request)
+    {
+
+//        dd($request->q);
+
+        if ($search = \Request::get('q')){
+            $users = User::where(function ($query) use ($search){
+               $query->where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%");
+            })->paginate(2);
+        }else{
+            $users = User::latest()->paginate(2);
+        }
+
+        return $users;
+
+    }
+
     public function destroy($id)
     {
 
