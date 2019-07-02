@@ -79508,7 +79508,10 @@ var app = new Vue({
     //    Search form for insant searching using lodash _.debounce
     searchUser: _.debounce(function () {
       Fire.$emit('searching');
-    }, 1000)
+    }, 1000),
+    printme: function printme() {
+      window.print();
+    }
   }
 });
 
